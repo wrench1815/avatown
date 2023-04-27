@@ -3,3 +3,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    @apply selection:!bg-neutral selection:!text-neutral-content;
+  }
+
+  /* scrollbar */
+  *::-webkit-scrollbar {
+    @apply w-2 bg-transparent;
+  }
+
+  *::-webkit-scrollbar:horizontal {
+    @apply h-2;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply rounded-xl;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply bg-neutral/70 rounded-2xl;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral;
+  }
+
+  *::-webkit-scrollbar-thumb:active {
+    @apply bg-neutral;
+  }
+
+  * {
+    scrollbar-gutter: unset;
+    scrollbar-color: hsl(var(--n)) transparent;
+  }
+}

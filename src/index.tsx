@@ -3,14 +3,14 @@ import NavBar from './components/NavBar/Index'
 import Filters from './components/Filters'
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   return (
     <>
       <NavBar />
-      <div className="flex prose max-w-full prose-headings:my-0">
-        <Filters />
-        <div className="flex flex-1 justify-center items-center h-screen ">
+      <div className="flex flex-1 max-w-full prose prose-headings:my-0">
+        <div className="flex-none w-fit h-[calc(100dvh_-_4rem)] overflow-y-auto bg-base-100">
+          <Filters />
+        </div>
+        <div className="flex-grow p-8">
           <Card />
         </div>
       </div>

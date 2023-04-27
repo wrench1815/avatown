@@ -275,8 +275,7 @@ function Filters() {
 
   return (
     <>
-      <div className="prose-li:list-none prose-ul:pl-6 prose-li:pl-0 px-6 border-r shadow">
-        {}
+      <div className="prose-li:list-none prose-ul:pl-4 prose-li:pl-0 px-6 shadow">
         <div>
           <h3>Category</h3>
           <ul>
