@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 function Search() {
   return (
     <>
-      <div className="form-control relative">
+      <div className="form-control relative hidden">
         <input
           id="search"
           type="text"

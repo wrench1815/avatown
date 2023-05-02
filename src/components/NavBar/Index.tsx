@@ -1,8 +1,8 @@
-import logo from '../../assets/images/logo/logo_avatown_manual_1_basic.png'
-
-import Button from './Button'
-
 import { ShoppingCartIcon, BellIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
+
+import logo from '../../assets/images/logo/logo_avatown_manual_1_basic.png'
+import Button from './Button'
 import Profile from './Profile'
 import Search from './Search'
 
@@ -11,12 +11,15 @@ function NavBar() {
     <>
       <div className="navbar bg-base-100 sticky top-0 z-50 max-h-16">
         <div className="flex-1 flex items-center">
-          <a className="btn btn-ghost hover:bg-transparent normal-case text-xl">
+          <Link
+            to={'/'}
+            className="btn btn-ghost hover:bg-transparent normal-case text-xl"
+          >
             <img className="h-9" src={logo} alt="" />
-          </a>
-          <a className="mr-auto ml-0 text-xl -mb-2 underline cursor-pointer">
+          </Link>
+          {/* <a className="mr-auto ml-0 text-xl -mb-2 underline cursor-pointer">
             Go to Marketpage
-          </a>
+          </a> */}
         </div>
         <div className="flex-none gap-2">
           <Search />
