@@ -1,44 +1,62 @@
 import { useState } from 'react'
 
-function Filters() {
-  const contentList = () => {
-    const [contents, setContents] = useState([
-      {
-        id: 1,
-        name: 'VRChat(Quest)',
-        colorClass: 'bg-success',
-        value: 'vrchatQuest',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        name: 'VRChat(PCVR)',
-        colorClass: 'bg-info',
-        value: 'vrchatPcvr',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        name: 'Others',
-        value: 'others',
-        isChecked: false,
-      },
-    ])
+interface IFiltersProps {
+  contents: {
+    id: number
+    name: string
+    colorClass: string
+    value: string
+    isChecked: boolean
+  }[]
+  contentsChange: (id: number) => void
+  prices: {
+    id: number
+    name: string
+    value: string
+    isChecked: boolean
+  }[]
+  pricesChange: (id: number) => void
+}
 
-    const handleCheckboxChange = (id: number) => {
-      setContents((prevContents) =>
-        prevContents.map((content) => {
-          if (content.id === id) {
-            return { ...content, isChecked: !content.isChecked }
-          }
-          return content
-        })
-      )
-    }
+function Filters(props: IFiltersProps) {
+  const contentList = () => {
+    // const [contents, setContents] = useState([
+    //   {
+    //     id: 1,
+    //     name: 'VRChat(Quest)',
+    //     colorClass: 'bg-success',
+    //     value: 'vrchatQuest',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'VRChat(PCVR)',
+    //     colorClass: 'bg-info',
+    //     value: 'vrchatPcvr',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 3,
+    //     name: 'Others',
+    //     value: 'others',
+    //     isChecked: false,
+    //   },
+    // ])
+
+    // const handleCheckboxChange = (id: number) => {
+    //   setContents((prevContents) =>
+    //     prevContents.map((content) => {
+    //       if (content.id === id) {
+    //         return { ...content, isChecked: !content.isChecked }
+    //       }
+    //       return content
+    //     })
+    //   )
+    // }
 
     return (
       <ul>
-        {contents.map((content) => (
+        {props.contents.map((content) => (
           <li key={content.id}>
             <div className="form-control inline-flex">
               <label className="label justify-start gap-2 cursor-pointer">
@@ -47,7 +65,7 @@ function Filters() {
                   className="checkbox"
                   value={content.value}
                   checked={content.isChecked}
-                  onChange={() => handleCheckboxChange(content.id)}
+                  onChange={() => props.contentsChange(content.id)}
                 />
                 <span className="text-lg">{content.name}</span>
                 <div
@@ -62,65 +80,65 @@ function Filters() {
   }
 
   const priceList = () => {
-    const [prices, setPrices] = useState([
-      {
-        id: 1,
-        name: 'Under $10',
-        value: 'under10',
-        isChecked: false,
-      },
-      {
-        id: 2,
-        name: '$10 to $20',
-        value: '10to20',
-        isChecked: false,
-      },
-      {
-        id: 3,
-        name: '$20 to $30',
-        value: '20to30',
-        isChecked: false,
-      },
-      {
-        id: 4,
-        name: '$30 to $40',
-        value: '30to40',
-        isChecked: false,
-      },
-      {
-        id: 5,
-        name: '$40 to $50',
-        value: '40to50',
-        isChecked: false,
-      },
-      {
-        id: 6,
-        name: '$50 to $70',
-        value: '50to70',
-        isChecked: false,
-      },
-      {
-        id: 7,
-        name: '$70 & above',
-        value: '70above',
-        isChecked: false,
-      },
-    ])
+    // const [prices, setPrices] = useState([
+    //   {
+    //     id: 1,
+    //     name: 'Under $10',
+    //     value: 'under10',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 2,
+    //     name: '$10 to $20',
+    //     value: '10to20',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 3,
+    //     name: '$20 to $30',
+    //     value: '20to30',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 4,
+    //     name: '$30 to $40',
+    //     value: '30to40',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 5,
+    //     name: '$40 to $50',
+    //     value: '40to50',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 6,
+    //     name: '$50 to $70',
+    //     value: '50to70',
+    //     isChecked: false,
+    //   },
+    //   {
+    //     id: 7,
+    //     name: '$70 & above',
+    //     value: '70above',
+    //     isChecked: false,
+    //   },
+    // ])
 
-    const handleCheckboxChange = (id: number) => {
-      setPrices((prevPrices) =>
-        prevPrices.map((price) => {
-          if (price.id === id) {
-            return { ...price, isChecked: !price.isChecked }
-          }
-          return price
-        })
-      )
-    }
+    // const handleCheckboxChange = (id: number) => {
+    //   setPrices((prevPrices) =>
+    //     prevPrices.map((price) => {
+    //       if (price.id === id) {
+    //         return { ...price, isChecked: !price.isChecked }
+    //       }
+    //       return price
+    //     })
+    //   )
+    // }
 
     return (
       <ul>
-        {prices.map((price) => {
+        {props.prices.map((price) => {
           return (
             <li key={price.id}>
               <div className="form-control inline-flex">
@@ -130,7 +148,7 @@ function Filters() {
                     className="checkbox"
                     value={price.value}
                     checked={price.isChecked}
-                    onChange={() => handleCheckboxChange(price.id)}
+                    onChange={() => props.pricesChange(price.id)}
                   />
                   <span className="text-lg">{price.name}</span>
                 </label>
@@ -275,7 +293,7 @@ function Filters() {
 
   return (
     <>
-      <div className="prose-li:list-none prose-ul:pl-4 prose-li:pl-0 px-6 shadow">
+      <div className="prose-li:list-none prose-ul:pl-4 prose-li:pl-0">
         <div>
           <h3>Category</h3>
           <ul>
