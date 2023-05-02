@@ -4,21 +4,30 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './assets/styles/index.css'
 
-import Index from './views/Market.tsx'
 import NavBar from './components/NavBar/Index.tsx'
+import Default from './layout/default.tsx'
 
+import Index from './views/Market.tsx'
+import SingleItem from './views/SingleItem.tsx'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Index />,
+    element: <Default />,
+    children: [
+      {
+        path: '/',
+        element: <Index />,
+      },
+      {
+        path: '/:avatarId',
+        element: <SingleItem />,
+      },
+    ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <NavBar />
-    <div className="max-w-full prose prose-headings:my-0 prose-img:my-0 prose-figure:my-0">
-      <RouterProvider router={router} />
-    </div>
+    <RouterProvider router={router} />
   </React.StrictMode>
 )
