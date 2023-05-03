@@ -37,7 +37,7 @@ function generateRandomAvatar() {
   const price = parseFloat((Math.random() * 100 + 1).toFixed(2))
   const rating = parseFloat((Math.random() * 4 + 1).toFixed(1))
   const likes = Math.floor(Math.random() * 100)
-  const image = imageList[counter - 1] || VRC1
+  const image = imageList[Math.floor(Math.random() * imageList.length)]
   const provider = {
     name: "Avatar Joe's",
     img: VRC11,
