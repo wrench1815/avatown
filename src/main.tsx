@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './assets/styles/index.css'
 
-import NavBar from './components/NavBar/Index.tsx'
 import Default from './layout/default.tsx'
 
 import Index from './views/Market.tsx'
