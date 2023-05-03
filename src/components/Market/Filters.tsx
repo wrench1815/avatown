@@ -4,55 +4,21 @@ interface IFiltersProps {
   contents: {
     id: number
     name: string
-    colorClass: string
+    colorClass?: string
     value: string
-    isChecked: boolean
   }[]
-  contentsChange: (id: number) => void
-  prices: {
-    id: number
-    name: string
-    value: string
-    isChecked: boolean
-  }[]
-  pricesChange: (id: number) => void
+  selectedContent: string
+  setContent: (val: string) => void
 }
 
 function Filters(props: IFiltersProps) {
   const contentList = () => {
-    // const [contents, setContents] = useState([
-    //   {
-    //     id: 1,
-    //     name: 'VRChat(Quest)',
-    //     colorClass: 'bg-success',
-    //     value: 'vrchatQuest',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'VRChat(PCVR)',
-    //     colorClass: 'bg-info',
-    //     value: 'vrchatPcvr',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 3,
-    //     name: 'Others',
-    //     value: 'others',
-    //     isChecked: false,
-    //   },
-    // ])
-
-    // const handleCheckboxChange = (id: number) => {
-    //   setContents((prevContents) =>
-    //     prevContents.map((content) => {
-    //       if (content.id === id) {
-    //         return { ...content, isChecked: !content.isChecked }
-    //       }
-    //       return content
-    //     })
-    //   )
-    // }
+    const handleRadioChange = (id: number) => {
+      const selectedContent = props.contents.find(
+        (content) => content.id === id
+      )
+      props.setContent(String(selectedContent!.value))
+    }
 
     return (
       <ul>
@@ -61,11 +27,12 @@ function Filters(props: IFiltersProps) {
             <div className="form-control inline-flex">
               <label className="label justify-start gap-2 cursor-pointer">
                 <input
-                  type="checkbox"
-                  className="checkbox"
+                  type="radio"
+                  className="radio"
                   value={content.value}
-                  checked={content.isChecked}
-                  onChange={() => props.contentsChange(content.id)}
+                  name="content"
+                  checked={content.value === props.selectedContent}
+                  onChange={() => handleRadioChange(content.id)}
                 />
                 <span className="text-lg">{content.name}</span>
                 <div
@@ -80,65 +47,65 @@ function Filters(props: IFiltersProps) {
   }
 
   const priceList = () => {
-    // const [prices, setPrices] = useState([
-    //   {
-    //     id: 1,
-    //     name: 'Under $10',
-    //     value: 'under10',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: '$10 to $20',
-    //     value: '10to20',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 3,
-    //     name: '$20 to $30',
-    //     value: '20to30',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 4,
-    //     name: '$30 to $40',
-    //     value: '30to40',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 5,
-    //     name: '$40 to $50',
-    //     value: '40to50',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 6,
-    //     name: '$50 to $70',
-    //     value: '50to70',
-    //     isChecked: false,
-    //   },
-    //   {
-    //     id: 7,
-    //     name: '$70 & above',
-    //     value: '70above',
-    //     isChecked: false,
-    //   },
-    // ])
+    const [prices, setPrices] = useState([
+      {
+        id: 1,
+        name: 'Under $10',
+        value: 'under10',
+        isChecked: false,
+      },
+      {
+        id: 2,
+        name: '$10 to $20',
+        value: '10to20',
+        isChecked: false,
+      },
+      {
+        id: 3,
+        name: '$20 to $30',
+        value: '20to30',
+        isChecked: false,
+      },
+      {
+        id: 4,
+        name: '$30 to $40',
+        value: '30to40',
+        isChecked: false,
+      },
+      {
+        id: 5,
+        name: '$40 to $50',
+        value: '40to50',
+        isChecked: false,
+      },
+      {
+        id: 6,
+        name: '$50 to $70',
+        value: '50to70',
+        isChecked: false,
+      },
+      {
+        id: 7,
+        name: '$70 & above',
+        value: '70above',
+        isChecked: false,
+      },
+    ])
 
-    // const handleCheckboxChange = (id: number) => {
-    //   setPrices((prevPrices) =>
-    //     prevPrices.map((price) => {
-    //       if (price.id === id) {
-    //         return { ...price, isChecked: !price.isChecked }
-    //       }
-    //       return price
-    //     })
-    //   )
-    // }
+    const handleCheckboxChange = (id: number) => {
+      setPrices((prevPrices) =>
+        prevPrices.map((price) => {
+          if (price.id === id) {
+            return { ...price, isChecked: !price.isChecked }
+          }
+          return price
+        })
+      )
+    }
 
     return (
       <ul>
-        {props.prices.map((price) => {
+        {prices.map((price) => {
           return (
             <li key={price.id}>
               <div className="form-control inline-flex">
@@ -148,7 +115,7 @@ function Filters(props: IFiltersProps) {
                     className="checkbox"
                     value={price.value}
                     checked={price.isChecked}
-                    onChange={() => props.pricesChange(price.id)}
+                    onChange={() => handleCheckboxChange(price.id)}
                   />
                   <span className="text-lg">{price.name}</span>
                 </label>

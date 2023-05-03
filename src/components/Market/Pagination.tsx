@@ -35,7 +35,7 @@ function Pagination(props: IPaginationProps) {
           <div
             key={pageNumber}
             className={`h-10 w-10 bg-neutral/20 font-bold rounded flex items-center justify-center transition-all duration-200 cursor-pointer ${
-              pageNumber === props.current ? 'bg-blue-500 text-white' : ''
+              pageNumber === props.current ? '!bg-primary !text-base-100' : ''
             }`}
             onClick={() => props.paginate(pageNumber)}
           >

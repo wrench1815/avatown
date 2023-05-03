@@ -6,107 +6,60 @@ import Filters from '../components/Market/Filters'
 import Pagination from '../components/Market/Pagination'
 
 import avatarList from '../api/data'
+import NotFound from '../components/NotFound'
 
 function Market() {
-  const [contents, setContents] = useState([
+  const contents = [
     {
       id: 1,
+      name: 'All',
+      colorClass: '',
+      value: '1',
+    },
+    {
+      id: 2,
       name: 'VRChat(Quest)',
       colorClass: 'bg-success',
-      value: 'vrchatQuest',
-      isChecked: false,
+      value: '2',
     },
     {
-      id: 2,
+      id: 3,
       name: 'VRChat(PCVR)',
       colorClass: 'bg-info',
-      value: 'vrchatPcvr',
-      isChecked: false,
-    },
-    {
-      id: 3,
-      name: 'Others',
-      value: 'others',
-      colorClass: '',
-      isChecked: false,
-    },
-  ])
-
-  const handleContentsChange = (id: number) => {
-    setContents((prevContents) =>
-      prevContents.map((content) => {
-        if (content.id === id) {
-          return { ...content, isChecked: !content.isChecked }
-        }
-        return content
-      })
-    )
-  }
-
-  const [prices, setPrices] = useState([
-    {
-      id: 1,
-      name: 'Under $10',
-      value: 'under10',
-      isChecked: false,
-    },
-    {
-      id: 2,
-      name: '$10 to $20',
-      value: '10to20',
-      isChecked: false,
-    },
-    {
-      id: 3,
-      name: '$20 to $30',
-      value: '20to30',
-      isChecked: false,
+      value: '3',
     },
     {
       id: 4,
-      name: '$30 to $40',
-      value: '30to40',
-      isChecked: false,
+      name: 'Others',
+      value: '4',
     },
-    {
-      id: 5,
-      name: '$40 to $50',
-      value: '40to50',
-      isChecked: false,
-    },
-    {
-      id: 6,
-      name: '$50 to $70',
-      value: '50to70',
-      isChecked: false,
-    },
-    {
-      id: 7,
-      name: '$70 & above',
-      value: '70above',
-      isChecked: false,
-    },
-  ])
+  ]
 
-  const handlePricesChange = (id: number) => {
-    setPrices((prevPrices) =>
-      prevPrices.map((price) => {
-        if (price.id === id) {
-          return { ...price, isChecked: !price.isChecked }
-        }
-        return price
-      })
-    )
-  }
+  const [selectedContent, setSelectedContent] = useState('1')
 
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 12
 
+  const filteredAvatarList = avatarList.filter((av) => {
+    if (selectedContent === '1') {
+      return true
+    } else if (selectedContent === '2') {
+      return av.quest
+    } else if (selectedContent === '3') {
+      return av.pc
+    } else if (selectedContent === '4') {
+      return !av.pc && !av.quest
+    }
+  })
+
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = avatarList.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = filteredAvatarList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  )
 
-  const totalPages = Math.ceil(avatarList.length / itemsPerPage)
+  const totalPages = Math.ceil(filteredAvatarList.length / itemsPerPage)
 
   const paginateNext = () => {
     if (currentPage < totalPages) {
@@ -177,19 +130,25 @@ function Market() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-            {currentItems.map((av) => (
-              <Card key={av.id} data={av} />
-            ))}
-          </div>
+          {currentItems.length === 0 ? (
+            <NotFound />
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+              {currentItems.map((av) => (
+                <Card key={av.id} data={av} />
+              ))}
+            </div>
+          )}
 
-          <Pagination
-            next={paginateNext}
-            prev={paginatePrev}
-            current={currentPage}
-            total={totalPages}
-            paginate={paginate}
-          />
+          {currentItems.length > 0 && (
+            <Pagination
+              next={paginateNext}
+              prev={paginatePrev}
+              current={currentPage}
+              total={totalPages}
+              paginate={paginate}
+            />
+          )}
         </div>
 
         <div className="drawer-side">
@@ -197,9 +156,8 @@ function Market() {
           <ul className="p-4 overflow-y-auto bg-base-100 w-fit">
             <Filters
               contents={contents}
-              contentsChange={handleContentsChange}
-              prices={prices}
-              pricesChange={handlePricesChange}
+              selectedContent={selectedContent}
+              setContent={setSelectedContent}
             />
           </ul>
         </div>
