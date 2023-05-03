@@ -35,3 +35,5 @@ Deployment link: [https://wrench1815-avatown.netlify.app](https://wrench1815-ava
 ## Additonal Help
 
 Additional help was taken by browsing random StackOverflow posts(regarding pagination, filtering) and MDN website(map, filter) when working with filters and pagination to get an Idea what others aree doing. Although the information was usefull but it was not exactly what I needed so i just took overview of it and modified it to use in this application.
+
+Also this specifc post was used to help with a weird issue with riuting where on refresh it would show an error on netlify https://stackoverflow.com/questions/75375772/routes-not-working-properly-in-react-using-vite-on-build
