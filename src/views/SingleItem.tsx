@@ -46,7 +46,7 @@ function SingleItem() {
 
   return (
     <>
-      <div className="container mx-auto my-6 gap-6 flex flex-col">
+      <div className="container mx-auto my-6 gap-6 flex flex-col px-6">
         <div className="flex lg:flex-row flex-col gap-8 p-4 border shadow rounded-2xl">
           <div className="xl:w-2/5 flex">
             <img
